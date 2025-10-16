@@ -10,14 +10,51 @@ class UI {
       left: { r: 17, g: 17, b: 17 }, // #111111
       right: { r: 255, g: 255, b: 255 }, // #ffffff
     };
+    this.darkMode = true; // Default to dark mode
 
     this.init();
   }
 
   init() {
+    this.loadThemePreference();
+    this.applyTheme();
     this.bindEvents();
     this.loadSavedPalettes();
     this.updateContrastDisplay();
+  }
+
+  loadThemePreference() {
+    const savedTheme = localStorage.getItem("colorPaletteTheme");
+    if (savedTheme !== null) {
+      this.darkMode = savedTheme === "dark";
+    }
+    // Default is already true (dark mode)
+  }
+
+  saveThemePreference() {
+    localStorage.setItem("colorPaletteTheme", this.darkMode ? "dark" : "light");
+  }
+
+  applyTheme() {
+    const rootHtml = $("html");
+    const sunIcon = $("#sun-icon");
+    const moonIcon = $("#moon-icon");
+
+    if (this.darkMode) {
+      rootHtml.addClass("dark");
+      sunIcon.addClass("hidden");
+      moonIcon.removeClass("hidden");
+    } else {
+      rootHtml.removeClass("dark");
+      moonIcon.addClass("hidden");
+      sunIcon.removeClass("hidden");
+    }
+  }
+
+  toggleTheme() {
+    this.darkMode = !this.darkMode;
+    this.applyTheme();
+    this.saveThemePreference();
   }
 
   bindEvents() {
@@ -83,6 +120,7 @@ class UI {
     // Header buttons
     $("#export-btn").on("click", () => this.exportPalette());
     $("#clear-btn").on("click", () => this.clearActivePalette());
+    $("#theme-toggle").on("click", () => this.toggleTheme());
 
     // Palette management
     $("#save-palette-btn").on("click", () => this.saveActivePalette());
@@ -304,12 +342,14 @@ class UI {
     element.className = "saved-palette";
     element.innerHTML = `
             <div class="saved-palette-header">
-                <h4 class="font-medium text-gray-900">${palette.name}</h4>
+                <h4 class="font-medium text-gray-900 dark:text-white">${
+                  palette.name
+                }</h4>
                 <div class="flex space-x-2">
-                    <button class="text-blue-600 hover:text-blue-700 text-sm load-palette-btn" data-palette-id="${
+                    <button class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm load-palette-btn" data-palette-id="${
                       palette.id
                     }">Load</button>
-                    <button class="text-red-600 hover:text-red-700 text-sm delete-palette-btn" data-palette-id="${
+                    <button class="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm delete-palette-btn" data-palette-id="${
                       palette.id
                     }">Delete</button>
                 </div>

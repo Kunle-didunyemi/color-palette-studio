@@ -5,33 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Color Palette Studio</title>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script>
+      tailwind.config = { darkMode: "class" };
+    </script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="styles/main.css" />
   </head>
-  <body class="bg-gray-100 min-h-screen">
+  <body class="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
+    <header
+      class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
           <div class="flex items-center space-x-4">
-            <h1 class="text-2xl font-bold text-gray-900">
-              <span class="text-green-600">CPS</span>
-              <span class="ml-2">Color Palette Studio</span>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+              <span class="text-green-600 dark:text-green-400">CPS</span>
+              <span class="ml-2 hidden sm:inline">Color Palette Studio</span>
             </h1>
           </div>
-          <div class="flex space-x-2">
+          <div class="flex items-center space-x-4">
             <button
-              id="export-btn"
-              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              id="theme-toggle"
+              class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              title="Toggle dark mode"
             >
-              Export
+              <svg
+                id="sun-icon"
+                class="w-5 h-5 text-gray-600 dark:text-gray-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                ></path>
+              </svg>
+              <svg
+                id="moon-icon"
+                class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                ></path>
+              </svg>
             </button>
-            <button
-              id="clear-btn"
-              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
-            >
-              Clear
-            </button>
+            <div class="flex space-x-2">
+              <button
+                id="export-btn"
+                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
+              >
+                Export
+              </button>
+              <button
+                id="clear-btn"
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors"
+              >
+                Clear
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -43,11 +84,13 @@
         <!-- Main Content Area -->
         <div class="lg:col-span-3 space-y-8">
           <!-- Image Upload Section -->
-          <section class="bg-white rounded-lg shadow-sm p-6">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">
+          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <h2
+              class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+            >
               Extract colors from an image
             </h2>
-            <p class="text-gray-600 mb-6">
+            <p class="text-gray-600 dark:text-gray-300 mb-6">
               Upload or drag-and-drop an image, then tune extraction count.
               Click swatches to add to your palette.
             </p>
@@ -55,30 +98,32 @@
             <!-- Upload Area -->
             <div
               id="upload-area"
-              class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors cursor-pointer"
+              class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-gray-400 dark:hover:border-gray-500 transition-colors cursor-pointer"
             >
               <div class="space-y-4">
                 <div>
-                  <p class="text-gray-600">
+                  <p class="text-gray-600 dark:text-gray-300">
                     Drop an image here or
                     <button
                       id="file-btn"
-                      class="text-blue-600 hover:text-blue-700 font-medium"
+                      class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
                     >
                       choose a file
                     </button>
                   </p>
                 </div>
-                <div class="flex items-center justify-center space-x-4">
+                <div class="flex flex-wrap gap-4 items-center justify-center space-x-4">
                   <button
                     id="demo-btn"
-                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+                    class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                   >
                     Use demo image
                   </button>
-                  <div class="flex items-center justify-center space-x-6">
+                  <div class="flex flex-wrap gap-2 items-center justify-center space-x-6">
                     <div class="flex items-center space-x-2">
-                      <label for="color-count" class="text-sm text-gray-600"
+                      <label
+                        for="color-count"
+                        class="text-sm text-gray-600 dark:text-gray-300"
                         >Colors</label
                       >
                       <input
@@ -91,12 +136,14 @@
                       />
                       <span
                         id="color-count-display"
-                        class="text-sm text-gray-600 min-w-[2ch]"
+                        class="text-sm text-gray-600 dark:text-gray-300 min-w-[2ch]"
                         >8</span
                       >
                     </div>
                     <div class="flex items-center space-x-2">
-                      <label for="quality-setting" class="text-sm text-gray-600"
+                      <label
+                        for="quality-setting"
+                        class="text-sm text-gray-600 dark:text-gray-300"
                         >Quality</label
                       >
                       <input
@@ -109,7 +156,7 @@
                       />
                       <span
                         id="quality-display"
-                        class="text-sm text-gray-600 min-w-[2ch]"
+                        class="text-sm text-gray-600 dark:text-gray-300 min-w-[2ch]"
                         >1</span
                       >
                     </div>
@@ -131,15 +178,17 @@
             >
               <img
                 id="preview-img"
-                class="max-w-[500px] mx-auto max-h-[300px] h-auto rounded-lg shadow-sm object-contain"
+                class="md:max-w-[500px] w-full mx-auto max-h-[300px] h-auto rounded-lg shadow-sm object-contain"
                 alt="Uploaded image"
               />
             </div>
           </section>
 
           <!-- Extracted Colors Section -->
-          <section class="bg-white rounded-lg shadow-sm p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <h3
+              class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
+            >
               Extracted colors
             </h3>
             <div id="extracted-colors" class="flex flex-wrap gap-3">
@@ -148,8 +197,10 @@
           </section>
 
           <!-- Active Palette Section -->
-          <section class="bg-white rounded-lg shadow-sm p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <h3
+              class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
+            >
               Active Palette
             </h3>
             <div class="space-y-4">
@@ -158,18 +209,18 @@
                   type="text"
                   id="palette-name"
                   placeholder="Palette name"
-                  class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
                 <button
                   id="save-palette-btn"
-                  class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                  class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 transition-colors"
                 >
                   Save
                 </button>
               </div>
               <div
                 id="active-palette"
-                class="space-y-2 min-h-[60px] p-4 border-2 border-dashed border-gray-200 rounded-lg flex flex-wrap gap-2"
+                class="space-y-2 min-h-[60px] p-4 border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-lg flex flex-wrap gap-2"
               >
                 <!-- Active palette colors will be added here -->
               </div>
@@ -177,11 +228,13 @@
           </section>
 
           <!-- Contrast Tester Section -->
-          <section class="bg-white rounded-lg shadow-sm p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <h3
+              class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
+            >
               Contrast tester
             </h3>
-            <p class="text-gray-600 mb-6">
+            <p class="text-gray-600 dark:text-gray-300 mb-6">
               Drag two colors below and check WCAG contrast and pass/fail
               badges.
             </p>
@@ -190,24 +243,28 @@
               <!-- Color Drop Areas -->
               <div
                 id="contrast-left"
-                class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center min-h-[120px] flex flex-col justify-center hover:border-gray-400 transition-colors cursor-pointer"
+                class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center min-h-[120px] flex flex-col justify-center hover:border-gray-400 dark:hover:border-gray-500 transition-colors cursor-pointer"
               >
-                <div class="text-sm text-gray-500 mb-2">Foreground</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                  Foreground
+                </div>
                 <div
                   id="contrast-left-color"
-                  class="text-2xl font-mono text-gray-400"
+                  class="text-2xl font-mono text-gray-400 dark:text-gray-500"
                 >
                   #111111
                 </div>
               </div>
               <div
                 id="contrast-right"
-                class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center min-h-[120px] flex flex-col justify-center hover:border-gray-400 transition-colors cursor-pointer"
+                class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center min-h-[120px] flex flex-col justify-center hover:border-gray-400 dark:hover:border-gray-500 transition-colors cursor-pointer"
               >
-                <div class="text-sm text-gray-500 mb-2">Background</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                  Background
+                </div>
                 <div
                   id="contrast-right-color"
-                  class="text-2xl font-mono text-gray-400"
+                  class="text-2xl font-mono text-gray-400 dark:text-gray-500"
                 >
                   #FFFFFF
                 </div>
@@ -215,41 +272,52 @@
             </div>
 
             <!-- Contrast Results -->
-            <div id="contrast-results" class="mt-6 p-4 bg-gray-50 rounded-lg">
-              <div class="flex items-center justify-between">
+            <div
+              id="contrast-results"
+              class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <div class="text-sm text-gray-600">Contrast</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-300">
+                    Contrast
+                  </div>
                   <div
                     id="contrast-ratio"
-                    class="text-2xl font-bold text-gray-900"
+                    class="text-2xl font-bold text-gray-900 dark:text-white"
                   >
                     21:1
                   </div>
                 </div>
                 <div class="flex space-x-4">
                   <div class="text-center">
-                    <div class="text-xs text-gray-600 mb-1">AA (normal)</div>
+                    <div class="text-xs text-gray-600 dark:text-gray-300 mb-1">
+                      AA (normal)
+                    </div>
                     <div
                       id="aa-normal"
-                      class="px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800"
+                      class="px-2 py-1 rounded text-xs font-medium bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200"
                     >
                       Fail
                     </div>
                   </div>
                   <div class="text-center">
-                    <div class="text-xs text-gray-600 mb-1">AA (large)</div>
+                    <div class="text-xs text-gray-600 dark:text-gray-300 mb-1">
+                      AA (large)
+                    </div>
                     <div
                       id="aa-large"
-                      class="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800"
+                      class="px-2 py-1 rounded text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"
                     >
                       Pass
                     </div>
                   </div>
                   <div class="text-center">
-                    <div class="text-xs text-gray-600 mb-1">AAA (normal)</div>
+                    <div class="text-xs text-gray-600 dark:text-gray-300 mb-1">
+                      AAA (normal)
+                    </div>
                     <div
                       id="aaa-normal"
-                      class="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800"
+                      class="px-2 py-1 rounded text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"
                     >
                       Pass
                     </div>
@@ -263,14 +331,14 @@
         <!-- Sidebar -->
         <div class="space-y-6">
           <!-- Saved Palettes -->
-          <section class="bg-white rounded-lg shadow-sm p-6">
+          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-lg font-semibold text-gray-900">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                 Saved Palettes
               </h3>
               <button
                 id="new-palette-btn"
-                class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+                class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
               >
                 New
               </button>
@@ -281,9 +349,13 @@
           </section>
 
           <!-- Help Section -->
-          <section class="bg-white rounded-lg shadow-sm p-6">
-            <h4 class="text-md font-semibold text-gray-900 mb-3">Help</h4>
-            <p class="text-sm text-gray-600">
+          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <h4
+              class="text-md font-semibold text-gray-900 dark:text-white mb-3"
+            >
+              Help
+            </h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
               Tip: Click a swatch to add to the active palette. Drag saved
               palette colors to the contrast tester. Palettes persist in your
               browser.

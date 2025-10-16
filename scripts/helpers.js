@@ -137,7 +137,8 @@ function createColorSwatch(color, onClick = null, size = "normal") {
 function createPaletteColor(color, onRemove = null) {
   // Create container for color and controls
   const container = document.createElement("div");
-  container.className = "palette-color-item flex items-center space-x-2 max-w-min mb-2";
+  container.className =
+    "palette-color-item flex items-center space-x-2 max-w-min mb-2";
 
   // Create color swatch
   const paletteColor = document.createElement("div");
@@ -149,13 +150,14 @@ function createPaletteColor(color, onRemove = null) {
 
   // Create hex code display
   const hexDisplay = document.createElement("span");
-  hexDisplay.className = "text-sm font-mono text-gray-700 flex-1";
+  hexDisplay.className =
+    "text-sm font-mono text-gray-700 dark:text-gray-300 flex-1";
   hexDisplay.textContent = formatColor(color);
 
   // Create remove button
   const removeBtn = document.createElement("button");
   removeBtn.className =
-    "text-red-500 hover:text-red-700 text-sm font-bold px-2 py-1 hover:bg-red-50 rounded transition-colors";
+    "text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-bold px-2 py-1 hover:bg-red-50 dark:hover:bg-red-900 rounded transition-colors";
   removeBtn.textContent = "×";
   removeBtn.title = "Remove color";
 
