@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palette Studio</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex items-center space-x-4">
+            <h1 class="text-2xl font-bold text-gray-900">
+              <span class="text-blue-600">PS</span>
+              <span class="ml-2">Palette Studio</span>
+            </h1>
+          </div>
+          <div class="flex space-x-2">
+            <button
+              id="export-btn"
+              class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Export
+            </button>
+            <button
+              id="clear-btn"
+              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Main Content Area -->
+        <div class="lg:col-span-3 space-y-8">
+          <!-- Image Upload Section -->
+          <section class="bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">
+              Extract colors from an image
+            </h2>
+            <p class="text-gray-600 mb-6">
+              Upload or drag-and-drop an image, then tune extraction count.
+              Click swatches to add to your palette.
+            </p>
+
+            <!-- Upload Area -->
+            <div
+              id="upload-area"
+              class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors cursor-pointer"
+            >
+              <div class="space-y-4">
+                <div>
+                  <p class="text-gray-600">
+                    Drop an image here or
+                    <button
+                      id="file-btn"
+                      class="text-blue-600 hover:text-blue-700 font-medium"
+                    >
+                      choose a file
+                    </button>
+                  </p>
+                </div>
+                <div class="flex items-center justify-center space-x-4">
+                  <button
+                    id="demo-btn"
+                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+                  >
+                    Use demo image
+                  </button>
+                  <div class="flex items-center space-x-2">
+                    <label for="color-count" class="text-sm text-gray-600"
+                      >Colors</label
+                    >
+                    <input
+                      type="range"
+                      id="color-count"
+                      min="2"
+                      max="20"
+                      value="6"
+                      class="w-24"
+                    />
+                    <span
+                      id="color-count-display"
+                      class="text-sm text-gray-600 min-w-[2ch]"
+                      >6</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <input
+                type="file"
+                id="file-input"
+                accept="image/*"
+                class="hidden"
+              />
+            </div>
+
+            <!-- Uploaded Image Preview -->
+            <div id="image-preview" class="mt-6 hidden">
+              <img
+                id="preview-img"
+                class="max-w-full h-auto rounded-lg shadow-sm"
+                alt="Uploaded image"
+              />
+            </div>
+          </section>
+
+          <!-- Extracted Colors Section -->
+          <section class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Extracted colors
+            </h3>
+            <div id="extracted-colors" class="flex flex-wrap gap-3">
+              <!-- Colors will be added here dynamically -->
+            </div>
+          </section>
+
+          <!-- Active Palette Section -->
+          <section class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Active Palette
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-center space-x-4">
+                <input
+                  type="text"
+                  id="palette-name"
+                  placeholder="Palette name"
+                  class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  id="save-palette-btn"
+                  class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                >
+                  Save
+                </button>
+              </div>
+              <div
+                id="active-palette"
+                class="flex flex-wrap gap-3 min-h-[60px] p-4 border-2 border-dashed border-gray-200 rounded-lg"
+              >
+                <!-- Active palette colors will be added here -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Contrast Tester Section -->
+          <section class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">
+              Contrast tester
+            </h3>
+            <p class="text-gray-600 mb-6">
+              Drag two colors below and check WCAG contrast and pass/fail
+              badges.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Color Drop Areas -->
+              <div
+                id="contrast-left"
+                class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center min-h-[120px] flex flex-col justify-center hover:border-gray-400 transition-colors cursor-pointer"
+              >
+                <div class="text-sm text-gray-500 mb-2">Foreground</div>
+                <div
+                  id="contrast-left-color"
+                  class="text-2xl font-mono text-gray-400"
+                >
+                  #111111
+                </div>
+              </div>
+              <div
+                id="contrast-right"
+                class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center min-h-[120px] flex flex-col justify-center hover:border-gray-400 transition-colors cursor-pointer"
+              >
+                <div class="text-sm text-gray-500 mb-2">Background</div>
+                <div
+                  id="contrast-right-color"
+                  class="text-2xl font-mono text-gray-400"
+                >
+                  #FFFFFF
+                </div>
+              </div>
+            </div>
+
+            <!-- Contrast Results -->
+            <div id="contrast-results" class="mt-6 p-4 bg-gray-50 rounded-lg">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-sm text-gray-600">Contrast</div>
+                  <div
+                    id="contrast-ratio"
+                    class="text-2xl font-bold text-gray-900"
+                  >
+                    21:1
+                  </div>
+                </div>
+                <div class="flex space-x-4">
+                  <div class="text-center">
+                    <div class="text-xs text-gray-600 mb-1">AA (normal)</div>
+                    <div
+                      id="aa-normal"
+                      class="px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800"
+                    >
+                      Fail
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-xs text-gray-600 mb-1">AA (large)</div>
+                    <div
+                      id="aa-large"
+                      class="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800"
+                    >
+                      Pass
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-xs text-gray-600 mb-1">AAA (normal)</div>
+                    <div
+                      id="aaa-normal"
+                      class="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800"
+                    >
+                      Pass
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <!-- Saved Palettes -->
+          <section class="bg-white rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-gray-900">
+                Saved Palettes
+              </h3>
+              <button
+                id="new-palette-btn"
+                class="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+              >
+                New
+              </button>
+            </div>
+            <div id="saved-palettes" class="space-y-3">
+              <!-- Saved palettes will be added here -->
+            </div>
+          </section>
+
+          <!-- Help Section -->
+          <section class="bg-white rounded-lg shadow-sm p-6">
+            <h4 class="text-md font-semibold text-gray-900 mb-3">Help</h4>
+            <p class="text-sm text-gray-600">
+              Tip: Click a swatch to add to the active palette. Drag saved
+              palette colors to the contrast tester. Palettes persist in your
+              browser.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="scripts/color-extractor.js"></script>
+    <script src="scripts/helpers.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

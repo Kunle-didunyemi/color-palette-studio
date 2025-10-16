@@ -1,0 +1,25 @@
+{
+  "name": "palette-studio",
+  "version": "1.0.0",
+  "description": "A web-based color palette extraction and management tool",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "color-palette",
+    "color-extraction",
+    "wcag",
+    "accessibility",
+    "web-app"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "browserslist": [
+    "last 2 versions",
+    "not ie <= 11"
+  ]
+}
