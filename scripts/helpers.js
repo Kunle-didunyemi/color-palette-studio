@@ -135,29 +135,46 @@ function createColorSwatch(color, onClick = null, size = "normal") {
 
 // Create palette color element (draggable)
 function createPaletteColor(color, onRemove = null) {
+  // Create container for color and controls
+  const container = document.createElement("div");
+  container.className = "palette-color-item flex items-center space-x-2 max-w-min mb-2";
+
+  // Create color swatch
   const paletteColor = document.createElement("div");
-  paletteColor.className = "palette-color";
+  paletteColor.className = "palette-color flex-shrink-0";
   paletteColor.style.backgroundColor = formatColor(color);
   paletteColor.title = formatColor(color);
   paletteColor.draggable = true;
   paletteColor.dataset.color = formatColor(color);
 
+  // Create hex code display
+  const hexDisplay = document.createElement("span");
+  hexDisplay.className = "text-sm font-mono text-gray-700 flex-1";
+  hexDisplay.textContent = formatColor(color);
+
+  // Create remove button
+  const removeBtn = document.createElement("button");
+  removeBtn.className =
+    "text-red-500 hover:text-red-700 text-sm font-bold px-2 py-1 hover:bg-red-50 rounded transition-colors";
+  removeBtn.textContent = "×";
+  removeBtn.title = "Remove color";
+
   if (onRemove) {
-    paletteColor.addEventListener("click", (e) => {
-      if (e.target === paletteColor) {
-        onRemove(color);
-      }
-    });
-    paletteColor.classList.add("remove");
+    removeBtn.addEventListener("click", () => onRemove(color));
   }
 
-  // Add drag functionality
+  // Add drag functionality to the color swatch
   paletteColor.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/plain", formatColor(color));
     e.dataTransfer.effectAllowed = "copy";
   });
 
-  return paletteColor;
+  // Assemble the container
+  container.appendChild(paletteColor);
+  container.appendChild(hexDisplay);
+  container.appendChild(removeBtn);
+
+  return container;
 }
 
 // Debounce function for performance

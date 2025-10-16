@@ -5,7 +5,7 @@ A web-based color palette extraction and management tool that allows users to ex
 ## Features
 
 - **Image Color Extraction**: Upload images or use drag-and-drop to extract dominant colors
-- **Adjustable Extraction**: Control the number of colors to extract (2-20 colors)
+- **Adjustable Extraction**: Control the number of colors to extract (2-15 colors)
 - **Palette Management**: Build custom palettes by clicking extracted colors
 - **WCAG Contrast Testing**: Check accessibility compliance between color pairs
 - **Save & Load Palettes**: Persist palettes in browser storage

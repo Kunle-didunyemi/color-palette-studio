@@ -84,7 +84,7 @@
                       type="range"
                       id="color-count"
                       min="2"
-                      max="20"
+                      max="15"
                       value="6"
                       class="w-24"
                     />
@@ -105,10 +105,10 @@
             </div>
 
             <!-- Uploaded Image Preview -->
-            <div id="image-preview" class="mt-6 hidden">
+            <div id="image-preview" class="mt-6 hidden flex justify-center items-center">
               <img
                 id="preview-img"
-                class="max-w-full h-auto rounded-lg shadow-sm"
+                class="max-w-[500px] mx-auto max-h-[300px] h-auto rounded-lg shadow-sm object-contain"
                 alt="Uploaded image"
               />
             </div>
@@ -146,7 +146,7 @@
               </div>
               <div
                 id="active-palette"
-                class="flex flex-wrap gap-3 min-h-[60px] p-4 border-2 border-dashed border-gray-200 rounded-lg"
+                class="space-y-2 min-h-[60px] p-4 border-2 border-dashed border-gray-200 rounded-lg flex flex-wrap gap-2"
               >
                 <!-- Active palette colors will be added here -->
               </div>
@@ -271,9 +271,9 @@
     </main>
 
     <!-- Scripts -->
-    <script src="scripts/color-extractor.js"></script>
-    <script src="scripts/helpers.js"></script>
-    <script src="scripts/ui.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="scripts/color-extractor.js?v=2"></script>
+    <script src="scripts/helpers.js?v=2"></script>
+    <script src="scripts/ui.js?v=2"></script>
+    <script src="scripts/main.js?v=2"></script>
   </body>
 </html>

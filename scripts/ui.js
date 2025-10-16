@@ -76,21 +76,25 @@ class UI {
     // Contrast drop areas
     $("#contrast-left, #contrast-right").on("dragover", (e) => {
       e.preventDefault();
-      $(e.target).closest(".contrast-drop-area").addClass("drag-over");
+      $(e.target)
+        .closest("#contrast-left, #contrast-right")
+        .addClass("drag-over");
     });
 
     $("#contrast-left, #contrast-right").on("dragleave", () => {
-      $(".contrast-drop-area").removeClass("drag-over");
+      $("#contrast-left, #contrast-right").removeClass("drag-over");
     });
 
     $("#contrast-left, #contrast-right").on("drop", (e) => {
       e.preventDefault();
-      $(".contrast-drop-area").removeClass("drag-over");
+      $("#contrast-left, #contrast-right").removeClass("drag-over");
 
       const colorHex = e.originalEvent.dataTransfer.getData("text/plain");
       if (colorHex) {
         const color = hexToRgb(colorHex);
-        const targetId = $(e.target).closest(".contrast-drop-area").attr("id");
+        const targetId = $(e.target)
+          .closest("#contrast-left, #contrast-right")
+          .attr("id");
         if (targetId === "contrast-left") {
           this.contrastColors.left = color;
         } else {
@@ -173,8 +177,18 @@ class UI {
   }
 
   addToActivePalette(color) {
-    if (this.activePalette.length >= 20) {
-      alert("Maximum 20 colors allowed in active palette.");
+    if (this.activePalette.length >= 15) {
+      alert("Maximum 15 colors allowed in active palette.");
+      return;
+    }
+
+    // Check if color already exists in palette
+    const exists = this.activePalette.some(
+      (c) => c.r === color.r && c.g === color.g && c.b === color.b
+    );
+
+    if (exists) {
+      alert("This color is already in your palette.");
       return;
     }
 
