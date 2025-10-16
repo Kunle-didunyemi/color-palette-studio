@@ -1,5 +1,159 @@
 /* Custom styles for Palette Studio */
 
+/* Lively gradient background */
+body {
+  background-image: radial-gradient(
+      1200px 800px at 0% 0%,
+      rgba(99, 102, 241, 0.12),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 700px at 100% 0%,
+      rgba(16, 185, 129, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 100% 100%,
+      rgba(236, 72, 153, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 0% 100%,
+      rgba(59, 130, 246, 0.1),
+      transparent 60%
+    );
+}
+
+.dark body {
+  background-image: radial-gradient(
+      1200px 800px at 0% 0%,
+      rgba(99, 102, 241, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 700px at 100% 0%,
+      rgba(16, 185, 129, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 100% 100%,
+      rgba(236, 72, 153, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 0% 100%,
+      rgba(59, 130, 246, 0.14),
+      transparent 60%
+    );
+}
+
+/* Colorful header underline and subtle glow */
+header {
+  position: relative;
+  overflow: hidden;
+}
+
+header:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #f59e0b,
+    #ef4444,
+    #8b5cf6,
+    #06b6d4,
+    #10b981
+  );
+  filter: saturate(120%);
+}
+
+/* Card glassmorphism */
+.card-elevated {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+}
+
+.dark .card-elevated {
+  background: rgba(31, 41, 55, 0.6);
+}
+
+/* Fancy focus ring */
+.focus-glow:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35),
+    0 0 0 6px rgba(236, 72, 153, 0.25);
+}
+
+/* Primary button sheen */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-20deg);
+}
+
+.btn-primary:hover:before {
+  animation: sheen 0.9s ease;
+}
+
+@keyframes sheen {
+  100% {
+    left: 150%;
+  }
+}
+
+/* Animated badges for contrast results */
+.pass-badge {
+  animation: pop-in 180ms ease-out;
+}
+
+.fail-badge {
+  animation: wobble 220ms ease-out;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
 /* Color swatch styles */
 .color-swatch {
   width: 60px;
@@ -86,7 +240,7 @@
 
 .palette-color-item:hover {
   border-color: #3b82f6;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.12);
 }
 
 .dark .palette-color-item:hover {
@@ -109,7 +263,7 @@
 
 .saved-palette:hover {
   border-color: #3b82f6;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.12);
 }
 
 .dark .saved-palette:hover {
@@ -140,7 +294,7 @@
 /* Upload area styles */
 #upload-area.drag-over {
   border-color: #3b82f6;
-  background-color: rgba(59, 130, 246, 0.05);
+  background-color: rgba(59, 130, 246, 0.08);
 }
 
 .dark #upload-area.drag-over {
@@ -162,6 +316,15 @@
 /* Loading animation */
 .loading {
   animation: pulse 2s infinite;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.08),
+    rgba(16, 185, 129, 0.08),
+    rgba(236, 72, 153, 0.08)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @keyframes pulse {

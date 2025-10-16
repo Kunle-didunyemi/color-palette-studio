@@ -27,7 +27,7 @@
           <div class="flex items-center space-x-4">
             <button
               id="theme-toggle"
-              class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus-glow"
               title="Toggle dark mode"
             >
               <svg
@@ -62,13 +62,13 @@
             <div class="flex space-x-2">
               <button
                 id="export-btn"
-                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
+                class="btn-primary px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors focus-glow"
               >
                 Export
               </button>
               <button
                 id="clear-btn"
-                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors"
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors focus-glow"
               >
                 Clear
               </button>
@@ -84,7 +84,9 @@
         <!-- Main Content Area -->
         <div class="lg:col-span-3 space-y-8">
           <!-- Image Upload Section -->
-          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <section
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 card-elevated"
+          >
             <h2
               class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
             >
@@ -106,7 +108,7 @@
                     Drop an image here or
                     <button
                       id="file-btn"
-                      class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                      class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium focus-glow"
                     >
                       choose a file
                     </button>
@@ -117,7 +119,7 @@
                 >
                   <button
                     id="demo-btn"
-                    class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                    class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors focus-glow"
                   >
                     Use demo image
                   </button>
@@ -136,7 +138,7 @@
                         min="3"
                         max="20"
                         value="8"
-                        class="w-20"
+                        class="w-20 focus-glow"
                       />
                       <span
                         id="color-count-display"
@@ -156,7 +158,7 @@
                         min="1"
                         max="5"
                         value="1"
-                        class="w-20"
+                        class="w-20 focus-glow"
                       />
                       <span
                         id="quality-display"
@@ -189,7 +191,9 @@
           </section>
 
           <!-- Extracted Colors Section -->
-          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <section
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 card-elevated"
+          >
             <h3
               class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
             >
@@ -201,7 +205,9 @@
           </section>
 
           <!-- Active Palette Section -->
-          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <section
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 card-elevated"
+          >
             <h3
               class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
             >
@@ -213,11 +219,11 @@
                   type="text"
                   id="palette-name"
                   placeholder="Palette name"
-                  class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                  class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus-glow"
                 />
                 <button
                   id="save-palette-btn"
-                  class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 transition-colors"
+                  class="btn-primary px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 transition-colors focus-glow"
                 >
                   Save
                 </button>
@@ -232,7 +238,9 @@
           </section>
 
           <!-- Contrast Tester Section -->
-          <section class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+          <section
+            class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 card-elevated"
+          >
             <h3
               class="text-lg font-semibold text-gray-900 dark:text-white mb-4"
             >
@@ -278,7 +286,7 @@
             <!-- Contrast Results -->
             <div
               id="contrast-results"
-              class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg"
+              class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg card-elevated"
             >
               <div class="flex flex-wrap items-center justify-between gap-4">
                 <div>
