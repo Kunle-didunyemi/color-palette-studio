@@ -56,14 +56,29 @@ class UI {
     // Demo image
     $("#demo-btn").on("click", () => this.loadDemoImage());
 
-    // Color count slider
-    $("#color-count").on("input", (e) => {
-      const value = e.target.value;
-      $("#color-count-display").text(value);
-      if (this.currentImage) {
-        this.extractColorsFromCurrentImage();
-      }
-    });
+    // Color count slider (debounced for performance)
+    $("#color-count").on(
+      "input",
+      debounce((e) => {
+        const value = e.target.value;
+        $("#color-count-display").text(value);
+        if (this.currentImage) {
+          this.extractColorsFromCurrentImage();
+        }
+      }, 150)
+    );
+
+    // Quality setting slider (debounced for performance)
+    $("#quality-setting").on(
+      "input",
+      debounce((e) => {
+        const value = e.target.value;
+        $("#quality-display").text(value);
+        if (this.currentImage) {
+          this.extractColorsFromCurrentImage();
+        }
+      }, 150)
+    );
 
     // Header buttons
     $("#export-btn").on("click", () => this.exportPalette());
@@ -145,15 +160,21 @@ class UI {
     if (!this.currentImage) return;
 
     const numColors = parseInt($("#color-count").val());
+    const quality = parseInt($("#quality-setting").val());
     const extractedColorsContainer = $("#extracted-colors");
 
-    // Show loading
-    showLoading(extractedColorsContainer[0], "Extracting colors...");
+    // Show loading with dynamic message based on settings
+    const loadingMsg =
+      numColors > 12
+        ? `Extracting ${numColors} colors...`
+        : "Extracting colors...";
+    showLoading(extractedColorsContainer[0], loadingMsg);
 
     try {
       this.extractedColors = await colorExtractor.extractColors(
         this.currentImage,
-        numColors
+        numColors,
+        quality
       );
       this.displayExtractedColors();
     } catch (error) {

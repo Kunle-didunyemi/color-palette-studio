@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Palette Studio</title>
+    <title>Color Palette Studio</title>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="styles/main.css" />
@@ -15,8 +15,8 @@
         <div class="flex justify-between items-center py-4">
           <div class="flex items-center space-x-4">
             <h1 class="text-2xl font-bold text-gray-900">
-              <span class="text-blue-600">PS</span>
-              <span class="ml-2">Palette Studio</span>
+              <span class="text-green-600">CPS</span>
+              <span class="ml-2">Color Palette Studio</span>
             </h1>
           </div>
           <div class="flex space-x-2">
@@ -76,23 +76,43 @@
                   >
                     Use demo image
                   </button>
-                  <div class="flex items-center space-x-2">
-                    <label for="color-count" class="text-sm text-gray-600"
-                      >Colors</label
-                    >
-                    <input
-                      type="range"
-                      id="color-count"
-                      min="2"
-                      max="15"
-                      value="6"
-                      class="w-24"
-                    />
-                    <span
-                      id="color-count-display"
-                      class="text-sm text-gray-600 min-w-[2ch]"
-                      >6</span
-                    >
+                  <div class="flex items-center justify-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                      <label for="color-count" class="text-sm text-gray-600"
+                        >Colors</label
+                      >
+                      <input
+                        type="range"
+                        id="color-count"
+                        min="3"
+                        max="20"
+                        value="8"
+                        class="w-20"
+                      />
+                      <span
+                        id="color-count-display"
+                        class="text-sm text-gray-600 min-w-[2ch]"
+                        >8</span
+                      >
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <label for="quality-setting" class="text-sm text-gray-600"
+                        >Quality</label
+                      >
+                      <input
+                        type="range"
+                        id="quality-setting"
+                        min="1"
+                        max="5"
+                        value="1"
+                        class="w-20"
+                      />
+                      <span
+                        id="quality-display"
+                        class="text-sm text-gray-600 min-w-[2ch]"
+                        >1</span
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
@@ -105,7 +125,10 @@
             </div>
 
             <!-- Uploaded Image Preview -->
-            <div id="image-preview" class="mt-6 hidden flex justify-center items-center">
+            <div
+              id="image-preview"
+              class="mt-6 hidden flex justify-center items-center"
+            >
               <img
                 id="preview-img"
                 class="max-w-[500px] mx-auto max-h-[300px] h-auto rounded-lg shadow-sm object-contain"
