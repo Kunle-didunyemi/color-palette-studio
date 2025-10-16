@@ -188,6 +188,13 @@
   user-select: none;
 }
 
+/* Improve touch interactions when dragging on mobile */
+.palette-color,
+#contrast-left,
+#contrast-right {
+  touch-action: none;
+}
+
 /* Range slider styling */
 input[type="range"] {
   -webkit-appearance: none;

@@ -19,6 +19,7 @@ class UI {
     this.loadThemePreference();
     this.applyTheme();
     this.bindEvents();
+    this.enableMobileContrastDrag();
     this.loadSavedPalettes();
     this.updateContrastDisplay();
   }
@@ -474,6 +475,70 @@ class UI {
 
   savePalettesToStorage() {
     savePalettesToStorage(this.savedPalettes);
+  }
+
+  // Enable touch-based dragging of palette colors to contrast boxes on mobile
+  enableMobileContrastDrag() {
+    const isTouchCapable =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    if (!isTouchCapable) return;
+
+    let currentDragHex = null;
+
+    // Start dragging from a palette color
+    $(document).on("touchstart", ".palette-color", (e) => {
+      const paletteEl = e.currentTarget;
+      currentDragHex =
+        paletteEl.dataset.color || $(paletteEl).css("background-color");
+    });
+
+    // Track movement and highlight potential drop target
+    $(document).on("touchmove", (e) => {
+      if (!currentDragHex) return;
+      const touch = e.originalEvent.touches[0];
+      if (!touch) return;
+      e.preventDefault(); // prevent scroll while dragging
+
+      const el = document.elementFromPoint(touch.clientX, touch.clientY);
+      const $target = $(el).closest("#contrast-left, #contrast-right");
+
+      // Toggle visual drag-over state
+      if ($target.length) {
+        $("#contrast-left, #contrast-right").removeClass("drag-over");
+        $target.addClass("drag-over");
+      } else {
+        $("#contrast-left, #contrast-right").removeClass("drag-over");
+      }
+    });
+
+    // Drop: assign color to the appropriate contrast box
+    $(document).on("touchend", (e) => {
+      if (!currentDragHex) return;
+      const touch =
+        e.originalEvent.changedTouches && e.originalEvent.changedTouches[0];
+      const pointX = touch ? touch.clientX : 0;
+      const pointY = touch ? touch.clientY : 0;
+
+      const el = document.elementFromPoint(pointX, pointY);
+      const $target = $(el).closest("#contrast-left, #contrast-right");
+
+      $("#contrast-left, #contrast-right").removeClass("drag-over");
+
+      if ($target.length) {
+        const color = hexToRgb(formatColor(currentDragHex));
+        if (color) {
+          const targetId = $target.attr("id");
+          if (targetId === "contrast-left") {
+            this.contrastColors.left = color;
+          } else {
+            this.contrastColors.right = color;
+          }
+          this.updateContrastDisplay();
+        }
+      }
+
+      currentDragHex = null;
+    });
   }
 }
 
